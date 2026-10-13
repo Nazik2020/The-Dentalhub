@@ -22,13 +22,13 @@ export const TreatmentSection: React.FC = () => {
   })
 
   return (
-    <section id="treatments" className="py-20 bg-canvas">
+    <section id="treatments" className="py-14 sm:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <SectionHeader
           tag="TREATMENTS"
           title="Everything your smile needs."
-          subtitle="From preventative hygiene to complex restorative reconstruction led by Dr. Kanishka Mudaliige, experience world-class clinical precision with a gentle touch."
+          subtitle="From preventative hygiene to complex restorative reconstruction led by Dr. Kanishka Mudalige, experience world-class clinical precision with a gentle touch."
         />
 
         {/* Category Pill Filters */}

@@ -4,9 +4,11 @@ import { ClinicMapPreview } from './ClinicMapPreview'
 
 export const LocationSection: React.FC = () => {
   return (
-    <section id="contact" className="py-20 bg-canvas border-t border-border-light">
+    <section id="contact" className="py-14 sm:py-20 bg-canvas border-t border-border-light relative">
+      {/* Secondary anchor alias for footer links targeting #location */}
+      <span id="location" className="absolute -top-20" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
             <LocationInfoCard />
           </div>

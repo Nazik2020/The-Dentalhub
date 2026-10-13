@@ -11,13 +11,14 @@ export const AppointmentModal: React.FC = () => {
       isOpen={isOpen}
       onClose={closeModal}
       title="Book a Dental Consultation"
-      description="Experience anxiety-free, gentle dentistry under Dr. Kanishka Mudaliige."
-      maxWidth="md"
+      description="Experience anxiety-free, gentle dentistry under Dr. Kanishka Mudalige."
+      maxWidth="lg"
     >
       <BookingForm
+        key={preselectedTreatment || 'default'}
         initialTreatmentId={preselectedTreatment}
         onSuccess={() => {
-          // Modal can stay open to show success confirmation
+          // Modal remains open to display confirmation and booking reference ID
         }}
       />
     </Modal>

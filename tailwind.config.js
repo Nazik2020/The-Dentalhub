@@ -68,9 +68,9 @@ export default {
         'cyan-focus': '0 0 0 3px rgba(8, 145, 178, 0.20)',
       },
       letterSpacing: {
-        'tight-hero': '-0.03em',
-        'tight-head': '-0.02em',
-        'tight-card': '-0.01em',
+        'tight-hero': '-0.015em',
+        'tight-head': '-0.01em',
+        'tight-card': '0em',
       },
       lineHeight: {
         'body-relaxed': '1.65',

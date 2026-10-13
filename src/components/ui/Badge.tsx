@@ -52,6 +52,8 @@ export const Badge: React.FC<BadgeProps> = ({
             'w-2 h-2 rounded-full inline-block shrink-0',
             variant === 'emergency'
               ? 'bg-emerald-500 animate-pulse'
+              : variant === 'gold'
+              ? 'bg-amber-500'
               : variant === 'active'
               ? 'bg-white'
               : 'bg-primary'

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CheckCircle2, Phone, MessageSquare } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
 import { CLINIC_INFO } from '@/constants/clinicInfo'
 import { TREATMENTS_DATA } from '@/features/treatments/data/treatmentData'
+import { AppointmentService } from '@/services/appointmentService'
 
 export interface BookingFormProps {
   initialTreatmentId?: string
@@ -20,15 +21,20 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   const [treatment, setTreatment] = useState(initialTreatmentId)
   const [preferredDate, setPreferredDate] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [bookingId, setBookingId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    setTreatment(initialTreatmentId || '')
+  }, [initialTreatmentId])
 
   const treatmentOptions = TREATMENTS_DATA.map((t) => ({
     value: t.id,
     label: `${t.title} (${t.startingPrice})`,
   }))
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!fullName.trim()) {
       setError('Please provide your full name.')
@@ -42,12 +48,29 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     setError('')
     setIsLoading(true)
 
-    // Simulate clinical appointment booking API call
-    setTimeout(() => {
+    try {
+      const response = await AppointmentService.requestBooking({
+        patient: {
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          email: '',
+          isFirstVisit: true,
+        },
+        treatmentId: treatment || 'general-checkup',
+        preferredDate: preferredDate.trim() || 'Flexible',
+        preferredTimeSlot: 'Flexible',
+      })
+
       setIsLoading(false)
+      if (response.data) {
+        setBookingId(response.data.bookingId)
+      }
       setIsSubmitted(true)
       if (onSuccess) onSuccess()
-    }, 600)
+    } catch {
+      setIsLoading(false)
+      setError('Unable to submit request right now. Please reach us directly via phone or WhatsApp.')
+    }
   }
 
   if (isSubmitted) {
@@ -60,9 +83,15 @@ export const BookingForm: React.FC<BookingFormProps> = ({
         <div className="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-sm">
           <CheckCircle2 size={30} strokeWidth={2.5} />
         </div>
-        <h3 className="font-heading font-extrabold text-2xl text-emerald-950">
+        <h3 className="font-heading font-bold text-2xl text-emerald-950">
           Appointment Requested!
         </h3>
+        {bookingId && (
+          <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-emerald-200 text-xs text-emerald-900 shadow-2xs">
+            <span className="font-medium text-emerald-700">Reference ID:</span>
+            <span className="font-mono font-bold tracking-wider">{bookingId}</span>
+          </div>
+        )}
         <p className="text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
           Thank you, <span className="font-bold text-emerald-950">{fullName}</span>. Our patient coordinator will contact you via WhatsApp or phone (<span className="font-semibold">{phone}</span>) shortly to finalize your exact slot.
         </p>
@@ -72,6 +101,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             size="md"
             onClick={() => {
               setIsSubmitted(false)
+              setBookingId(null)
               setFullName('')
               setPhone('')
               setPreferredDate('')
@@ -85,7 +115,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-left" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 text-left" noValidate>
       {error && (
         <div
           role="alert"
@@ -95,44 +125,46 @@ export const BookingForm: React.FC<BookingFormProps> = ({
         </div>
       )}
 
-      {/* Patient Name */}
-      <Input
-        label="Full Name"
-        placeholder="e.g., Nipun Gunaratne"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-        required
-      />
+      {/* Row 1: Patient Name & Phone Number (2 columns on sm+, 1 col on mobile) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Input
+          label="Full Name"
+          placeholder="e.g., Nipun Gunaratne"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+          required
+        />
 
-      {/* Phone Number */}
-      <Input
-        label="Phone / WhatsApp Number"
-        type="tel"
-        placeholder="e.g., +94 77 123 4567"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        required
-      />
+        <Input
+          label="Phone / WhatsApp Number"
+          type="tel"
+          placeholder="e.g., +94 71 986 8990"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+      </div>
 
-      {/* Treatment Dropdown */}
-      <Select
-        label="Treatment Needed"
-        placeholder="Select a Consultation or Treatment"
-        options={treatmentOptions}
-        value={treatment}
-        onChange={(e) => setTreatment(e.target.value)}
-      />
+      {/* Row 2: Treatment Needed & Preferred Date/Time (2 columns on sm+, 1 col on mobile) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Select
+          label="Treatment Needed"
+          placeholder="Select a Treatment"
+          options={treatmentOptions}
+          value={treatment}
+          onChange={(e) => setTreatment(e.target.value)}
+        />
 
-      {/* Preferred Date / Time slot */}
-      <Input
-        label="Preferred Date / Time"
-        placeholder="e.g., Wednesday morning or Saturday afternoon"
-        value={preferredDate}
-        onChange={(e) => setPreferredDate(e.target.value)}
-      />
+        <Input
+          label="Preferred Date / Time"
+          placeholder="e.g., Wednesday morning"
+          value={preferredDate}
+          onChange={(e) => setPreferredDate(e.target.value)}
+        />
+      </div>
 
       {/* Submit Button */}
-      <div className="pt-3">
+      <div className="pt-1">
         <Button
           type="submit"
           variant="primary"
@@ -152,18 +184,18 @@ export const BookingForm: React.FC<BookingFormProps> = ({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3">
           <a
             href={`tel:${CLINIC_INFO.contact.phone.replace(/\s+/g, '')}`}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-heading font-bold text-obsidian bg-canvas-subtle hover:bg-canvas-container border border-border-light px-4 py-2.5 rounded-pill transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="w-full sm:w-auto min-h-[42px] inline-flex items-center justify-center gap-2 text-xs font-heading font-bold text-obsidian bg-canvas-subtle hover:bg-canvas-container border border-border-medium px-5 py-2.5 rounded-pill transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            <Phone size={14} strokeWidth={1.5} className="text-primary" />
+            <Phone size={14} strokeWidth={1.75} className="text-primary" />
             <span>Call Clinic</span>
           </a>
           <a
             href={`https://wa.me/${CLINIC_INFO.contact.whatsapp.replace(/\+/g, '')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-heading font-bold text-white bg-whatsapp hover:bg-whatsapp-hover px-4 py-2.5 rounded-pill transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-whatsapp"
+            className="w-full sm:w-auto min-h-[42px] inline-flex items-center justify-center gap-2 text-xs font-heading font-bold text-white bg-whatsapp hover:bg-whatsapp-hover px-5 py-2.5 rounded-pill transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-whatsapp"
           >
-            <MessageSquare size={14} strokeWidth={1.5} />
+            <MessageSquare size={14} strokeWidth={1.75} />
             <span>WhatsApp Us</span>
           </a>
         </div>

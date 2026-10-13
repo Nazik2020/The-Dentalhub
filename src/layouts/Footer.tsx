@@ -5,22 +5,22 @@ import { FOOTER_NAV_LINKS } from '@/constants/navigation'
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-obsidian-dark text-slate-300 pt-16 pb-12 border-t border-obsidian-muted/40">
+    <footer className="bg-obsidian-dark text-slate-300 pt-14 sm:pt-16 pb-20 sm:pb-12 border-t border-obsidian-muted/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-12 border-b border-obsidian-muted/40">
+        {/* Main Footer Grid: 2 cols on mobile for nav links, 5 cols on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-obsidian-muted/40">
           {/* Column 1 & 2: Clinic Brand */}
-          <div className="lg:col-span-2 space-y-4 pr-4">
+          <div className="col-span-2 lg:col-span-2 space-y-4 pr-0 sm:pr-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-oceanic-dark flex items-center justify-center text-primary border border-primary/25">
+              <div className="w-10 h-10 rounded-full bg-oceanic-dark flex items-center justify-center text-primary border border-primary/25 shrink-0">
                 <Sparkles size={20} strokeWidth={1.5} className="text-white" />
               </div>
-              <span className="font-heading font-extrabold text-xl tracking-tight text-white">
+              <span className="font-heading font-bold text-xl tracking-normal text-white">
                 THE DENTAL HUB
               </span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Creating smiles, with gentle care in Galle, Sri Lanka. Modern dentistry with zero anxiety, led by Dr. Kanishka Mudaliige (BDS, MSc Implantology).
+              Creating smiles, with gentle care in Galle, Sri Lanka. Modern dentistry with zero anxiety, led by Dr. Kanishka Mudalige (BDS, MSc Implantology).
             </p>
             <div className="pt-2 text-xs text-slate-400 space-y-2">
               <p className="flex items-center gap-2">
@@ -34,8 +34,8 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Column 3: Quick Navigation */}
-          <div>
+          {/* Column 3: Quick Navigation (1 col on mobile alongside Treatments) */}
+          <div className="col-span-1">
             <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-white mb-4">
               Quick Navigation
             </h4>
@@ -53,8 +53,8 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 4: Treatments */}
-          <div>
+          {/* Column 4: Treatments (1 col on mobile alongside Quick Navigation) */}
+          <div className="col-span-1">
             <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-white mb-4">
               Treatments
             </h4>
@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 5: Direct Contact */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-white mb-4">
               Direct Contact
             </h4>
@@ -82,14 +82,14 @@ export const Footer: React.FC = () => {
                 href={`tel:${CLINIC_INFO.contact.phone.replace(/\s+/g, '')}`}
                 className="flex items-center gap-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
               >
-                <Phone size={15} strokeWidth={1.5} className="text-[#38BDF8]" />
+                <Phone size={15} strokeWidth={1.5} className="text-[#38BDF8] shrink-0" />
                 <span>{CLINIC_INFO.contact.phoneDisplay}</span>
               </a>
               <a
                 href={`mailto:${CLINIC_INFO.contact.email}`}
-                className="flex items-center gap-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
+                className="flex items-center gap-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded break-all"
               >
-                <Mail size={15} strokeWidth={1.5} className="text-[#38BDF8]" />
+                <Mail size={15} strokeWidth={1.5} className="text-[#38BDF8] shrink-0" />
                 <span>{CLINIC_INFO.contact.email}</span>
               </a>
               <a
@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-emerald-400 font-bold hover:underline pt-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
               >
-                <MessageSquare size={16} strokeWidth={1.5} />
+                <MessageSquare size={16} strokeWidth={1.5} className="shrink-0" />
                 <span>WhatsApp: {CLINIC_INFO.contact.whatsappDisplay}</span>
               </a>
             </div>
@@ -106,11 +106,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Disclaimer & Copyright */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center md:text-left">
           <p>
             © {new Date().getFullYear()} The Dental Hub Galle. All rights reserved. Registered Dental Healthcare Facility Sri Lanka.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-slate-300 transition-colors">Terms of Care</a>
             <a href="#" className="hover:text-slate-300 transition-colors">Patient Safety Protocol</a>

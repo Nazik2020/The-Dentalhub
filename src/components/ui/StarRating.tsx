@@ -20,8 +20,11 @@ export const StarRating: React.FC<StarRatingProps> = ({
   className,
 }) => {
   const ariaLabel = `Rated ${rating.toFixed(1)} out of ${maxRating} stars${
-    reviewCount ? ` based on ${reviewCount}+ reviews` : ''
+    reviewCount ? ` based on ${reviewCount} reviews` : ''
   }`
+
+  // Round to nearest star so 4.9 renders 5 filled gold stars like Google Maps
+  const filledStars = Math.round(rating)
 
   return (
     <div
@@ -31,7 +34,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
     >
       <div className="flex items-center gap-0.5" aria-hidden="true">
         {Array.from({ length: maxRating }).map((_, index) => {
-          const isFilled = index < Math.floor(rating)
+          const isFilled = index < filledStars
           return (
             <Star
               key={index}
@@ -53,7 +56,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
       )}
       {reviewCount && (
         <span className="text-bodyText text-xs font-medium" aria-hidden="true">
-          ({reviewCount}+ reviews)
+          ({reviewCount} reviews)
         </span>
       )}
     </div>

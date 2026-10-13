@@ -1,5 +1,6 @@
 import React from 'react'
 import { ShieldCheck, HeartHandshake, Sparkles, Clock } from 'lucide-react'
+import { CLINIC_INFO } from '@/constants/clinicInfo'
 
 export const TrustStrip: React.FC = () => {
   const trustItems = [
@@ -10,8 +11,8 @@ export const TrustStrip: React.FC = () => {
     },
     {
       icon: HeartHandshake,
-      title: '250+ Verified 5-Star Reviews',
-      description: 'Galle’s most trusted patient ratings on Google',
+      title: `${CLINIC_INFO.reviews.averageRating}★ Rated (${CLINIC_INFO.reviews.reviewCount}+ Reviews)`,
+      description: 'Galle’s top-rated dental clinic on Google Maps',
     },
     {
       icon: Sparkles,

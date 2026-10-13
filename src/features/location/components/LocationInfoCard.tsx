@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/Button'
 import { CLINIC_INFO } from '@/constants/clinicInfo'
 
 export const LocationInfoCard: React.FC = () => {
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${CLINIC_INFO.name}, ${CLINIC_INFO.location.address}`
-  )}`
+  const googleMapsUrl = CLINIC_INFO.location.googleMapsPlaceUrl
 
   return (
     <div className="space-y-6 text-left">
@@ -14,11 +12,11 @@ export const LocationInfoCard: React.FC = () => {
         <span className="inline-flex items-center px-3 py-1 rounded-pill text-xs font-heading font-bold uppercase tracking-wider bg-oceanic-light text-oceanic-dark border border-oceanic/20 mb-3.5">
           CLINIC LOCATION
         </span>
-        <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-obsidian tracking-tight leading-tight">
+        <h2 className="text-2xl sm:text-4xl font-heading font-bold text-obsidian tracking-tight-head leading-[1.2]">
           Visit us in Galle.
         </h2>
         <p className="mt-2 text-base text-bodyText">
-          Located in historical Galle Fort with ocean air, easy parking, and serene surroundings.
+          Conveniently located on Hirimbura Road in Kahaduwawatta, Galle with easy access, parking, and serene surroundings.
         </p>
       </div>
 
@@ -51,7 +49,7 @@ export const LocationInfoCard: React.FC = () => {
               Phone & WhatsApp
             </h4>
             <p className="text-xs sm:text-sm text-bodyText mt-0.5">
-              {CLINIC_INFO.contact.phoneDisplay}
+              Call: {CLINIC_INFO.contact.phoneDisplay}
             </p>
             <p className="text-xs text-whatsapp font-semibold mt-0.5">
               WhatsApp: {CLINIC_INFO.contact.whatsappDisplay}
@@ -72,7 +70,7 @@ export const LocationInfoCard: React.FC = () => {
               {CLINIC_INFO.hours.weekdays}
             </p>
             <p className="text-xs text-bodyText-muted mt-0.5">
-              {CLINIC_INFO.hours.saturday}
+              {CLINIC_INFO.hours.saturday} • {CLINIC_INFO.hours.sunday}
             </p>
           </div>
         </div>

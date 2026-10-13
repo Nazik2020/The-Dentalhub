@@ -13,7 +13,7 @@ export const DoctorCredentials: React.FC = () => {
         <span className="inline-flex items-center px-3 py-1 rounded-pill text-xs font-heading font-bold uppercase tracking-wider bg-oceanic-light text-oceanic-dark border border-oceanic/20 mb-3.5">
           OUR LEAD CLINICIAN
         </span>
-        <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-heading font-extrabold text-obsidian tracking-tight leading-[1.18]">
+        <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-heading font-bold text-obsidian tracking-tight-head leading-[1.2]">
           Meet {DOCTOR_DATA.name}
         </h2>
       </div>

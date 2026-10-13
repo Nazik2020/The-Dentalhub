@@ -24,18 +24,18 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div
       className={cn(
-        'max-w-3xl mb-10 md:mb-14',
+        'max-w-3xl mb-8 sm:mb-12 md:mb-14',
         isCenter ? 'mx-auto text-center' : 'text-left',
         className
       )}
     >
       {tag && (
-        <div className={cn('mb-3.5', isCenter && 'flex justify-center')}>
+        <div className={cn('mb-3', isCenter && 'flex justify-center')}>
           <span
             className={cn(
               'inline-flex items-center px-3 py-1 rounded-pill text-xs font-heading font-bold uppercase tracking-wider',
               isDark
-                ? 'bg-primary/15 text-primary border border-primary/25'
+                ? 'bg-primary/15 text-[#38BDF8] border border-primary/25'
                 : 'bg-oceanic-light text-oceanic-dark border border-oceanic/20'
             )}
           >
@@ -45,7 +45,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       )}
       <h2
         className={cn(
-          'text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-heading font-extrabold tracking-tight leading-[1.18] mb-3 sm:mb-4 text-balance',
+          'text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-heading font-bold tracking-tight-head leading-[1.2] mb-3 sm:mb-4 text-balance',
           isDark ? 'text-white' : 'text-obsidian'
         )}
       >
@@ -54,8 +54,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       {subtitle && (
         <p
           className={cn(
-            'text-base md:text-lg leading-body-relaxed text-balance',
-            isDark ? 'text-border-silver' : 'text-bodyText'
+            'text-sm sm:text-base md:text-lg leading-body-relaxed text-balance',
+            isDark ? 'text-slate-300' : 'text-bodyText'
           )}
         >
           {subtitle}

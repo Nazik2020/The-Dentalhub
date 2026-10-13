@@ -20,12 +20,12 @@ export const HowItWorksSection: React.FC = () => {
       stepNumber: 3,
       title: 'Walk in & rediscover your smile',
       description:
-        'Arrive at our serene Galle Fort clinic and receive anxiety-free, gentle dentistry in an architectural sanctuary.',
+        'Arrive at our serene Hirimbura Road clinic in Galle and receive anxiety-free, gentle dentistry in an architectural sanctuary.',
     },
   ]
 
   return (
-    <section id="how-it-works" className="py-20 bg-canvas">
+    <section id="how-it-works" className="py-14 sm:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           tag="HASSLE-FREE APPOINTMENTS"

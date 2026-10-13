@@ -11,7 +11,7 @@ export const FaqSection: React.FC = () => {
   }
 
   return (
-    <section id="faq" className="py-20 bg-canvas">
+    <section id="faq" className="py-14 sm:py-20 bg-canvas">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           tag="ANSWERS"

@@ -23,17 +23,17 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 bg-obsidian/95 backdrop-blur-md border-b border-obsidian-muted/40 transition-all shadow-elevation-1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-18 sm:h-20 gap-3">
+          {/* Logo - shrink-0 & whitespace-nowrap prevents 2-line wrapping */}
           <a
             href="#"
-            className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg p-1"
+            className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg p-1"
           >
-            <div className="w-10 h-10 rounded-full bg-oceanic-dark flex items-center justify-center text-primary group-hover:scale-105 transition-transform border border-primary/25 shadow-sm">
-              <Sparkles size={20} strokeWidth={1.5} className="text-white" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-oceanic-dark flex items-center justify-center text-primary group-hover:scale-105 transition-transform border border-primary/25 shadow-sm shrink-0">
+              <Sparkles size={18} strokeWidth={1.75} className="text-white" />
             </div>
-            <div>
-              <span className="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white block leading-tight">
+            <div className="whitespace-nowrap">
+              <span className="font-heading font-bold text-base sm:text-lg xl:text-xl tracking-normal text-white block leading-tight">
                 THE DENTAL HUB
               </span>
               <span className="text-[10px] font-heading font-semibold text-[#38BDF8] tracking-widest uppercase block">
@@ -42,13 +42,16 @@ export const Navbar: React.FC = () => {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1.5" aria-label="Main Navigation">
+          {/* Desktop Navigation Links - whitespace-nowrap guarantees single-line rendering */}
+          <nav
+            className="hidden lg:flex items-center gap-0.5 xl:gap-1.5"
+            aria-label="Main Navigation"
+          >
             {HEADER_NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[14px] font-heading font-medium text-slate-200 hover:text-white hover:bg-white/5 px-3 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="whitespace-nowrap text-[13px] xl:text-[14px] font-heading font-medium text-slate-200 hover:text-white hover:bg-white/5 px-2.5 xl:px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {link.label}
               </a>
@@ -56,12 +59,12 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-2.5 xl:gap-3.5 shrink-0">
             <a
               href={`tel:${CLINIC_INFO.contact.phone.replace(/\s+/g, '')}`}
-              className="hidden md:flex items-center gap-2 text-sm font-heading font-semibold text-slate-200 hover:text-white px-3 py-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="hidden xl:flex items-center gap-2 whitespace-nowrap text-sm font-heading font-semibold text-slate-200 hover:text-white px-3 py-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <Phone size={16} strokeWidth={1.5} className="text-[#38BDF8]" />
+              <Phone size={15} strokeWidth={1.75} className="text-[#38BDF8] shrink-0" />
               <span>{CLINIC_INFO.contact.phoneDisplay}</span>
             </a>
 
@@ -69,32 +72,32 @@ export const Navbar: React.FC = () => {
               variant="primary"
               size="md"
               onClick={() => openModal()}
-              className="shadow-sm font-bold"
+              className="shadow-sm font-bold whitespace-nowrap px-5 xl:px-6"
             >
               Book Consultation
             </Button>
           </div>
 
-          {/* Mobile Menu Hamburger */}
-          <div className="flex lg:hidden items-center gap-2.5">
+          {/* Mobile & Tablet Menu Controls */}
+          <div className="flex lg:hidden items-center gap-2 shrink-0">
             <Button
               variant="primary"
               size="sm"
               onClick={() => openModal()}
-              className="sm:hidden text-xs px-3.5 h-9"
+              className="sm:hidden text-xs px-3.5 h-9 whitespace-nowrap"
             >
-              Book
+              Book Now
             </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-full text-white hover:bg-obsidian-muted/40 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-obsidian-muted/40 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
-                <X size={22} strokeWidth={1.5} />
+                <X size={22} strokeWidth={1.75} />
               ) : (
-                <Menu size={22} strokeWidth={1.5} />
+                <Menu size={22} strokeWidth={1.75} />
               )}
             </button>
           </div>
@@ -110,7 +113,7 @@ export const Navbar: React.FC = () => {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-heading font-semibold text-slate-100 hover:text-white py-3 px-3.5 rounded-lg hover:bg-white/5 transition-colors"
+                className="text-base font-heading font-semibold text-slate-100 hover:text-white py-3 px-3.5 rounded-xl hover:bg-white/5 transition-colors"
               >
                 {link.label}
               </a>
@@ -118,10 +121,10 @@ export const Navbar: React.FC = () => {
             <div className="pt-4 mt-2 border-t border-obsidian-muted/40 flex flex-col gap-3">
               <a
                 href={`tel:${CLINIC_INFO.contact.phone.replace(/\s+/g, '')}`}
-                className="flex items-center gap-2 text-sm font-heading font-semibold text-[#38BDF8] py-2 px-3.5"
+                className="flex items-center gap-2.5 text-sm font-heading font-semibold text-[#38BDF8] py-2.5 px-3.5 rounded-xl bg-white/5"
               >
-                <Phone size={16} strokeWidth={1.5} />
-                <span>{CLINIC_INFO.contact.phoneDisplay}</span>
+                <Phone size={16} strokeWidth={1.75} />
+                <span>Call Clinic: {CLINIC_INFO.contact.phoneDisplay}</span>
               </a>
               <Button
                 variant="primary"
